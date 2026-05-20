@@ -1,0 +1,18 @@
+baseURL = "https://mkhlv.dev/"
+languageCode = "en-us"
+title = "mkhlv.dev"
+enableRobotsTXT = true
+enableEmoji = false
+
+[params]
+  name = "Ian Mikhailov"
+  tagline = "Backend engineer. Builder of things at scale."
+  email = "yanmhlv@gmail.com"
+  github = "yanmhlv"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[minify]
+  disableHTML = false
+  minifyOutput = true

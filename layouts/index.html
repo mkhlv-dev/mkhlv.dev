@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>{{ .Site.Params.name }}</h1>
+  <p class="tagline">{{ .Site.Params.tagline }}</p>
+</section>
+
+<section class="block">
+  <h2>Stack</h2>
+  <ul class="tags">
+    <li>Go</li>
+    <li>Elixir</li>
+    <li>React</li>
+    <li>Python</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h2>Interests</h2>
+  <ul class="tags">
+    <li>Investing &amp; trading</li>
+    <li>High-load systems</li>
+    <li>AI</li>
+  </ul>
+</section>
+
+<section class="block">
+  <h2>Elsewhere</h2>
+  <ul class="links">
+    <li><a href="https://github.com/{{ .Site.Params.github }}">github.com/{{ .Site.Params.github }}</a></li>
+    <li><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></li>
+  </ul>
+</section>
+{{ end }}
