@@ -6,9 +6,15 @@ enableEmoji = false
 
 [params]
   name = "Ian Mikhailov"
-  tagline = "Backend engineer. Builder of things at scale."
+  role = "Software engineer"
+  tagline = "Backend, frontend, and the messy bits in between. Shipping product, not just code."
   email = "yanmhlv@gmail.com"
   github = "yanmhlv"
+  location = "Rio de Janeiro, Brazil"
+  locality = "Rio de Janeiro"
+  country = "BR"
+  ogImage = "og.png"
+  knowsAbout = ["Go", "Elixir", "React", "Python", "Adtech", "High-load systems", "Distributed systems", "Trading infrastructure", "Product engineering"]
 
 [markup.goldmark.renderer]
   unsafe = true

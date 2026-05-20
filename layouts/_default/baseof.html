@@ -3,19 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}{{ .Site.Params.name }} — {{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+  <title>{{ if .IsHome }}{{ .Site.Params.name }} — {{ .Site.Params.role }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ .Site.Params.tagline }}">
   <meta name="author" content="{{ .Site.Params.name }}">
+  <link rel="canonical" href="{{ .Permalink }}">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ .Site.Params.name }} — {{ .Site.Title }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="{{ .Site.Params.name }} — {{ .Site.Params.role }}">
   <meta property="og:description" content="{{ .Site.Params.tagline }}">
-  <meta property="og:url" content="{{ .Site.BaseURL }}">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:url" content="{{ .Permalink }}">
+  {{ with .Site.Params.ogImage }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ .Site.Params.name }} — {{ .Site.Params.role }}">
+  <meta name="twitter:description" content="{{ .Site.Params.tagline }}">
+  {{ with .Site.Params.ogImage }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&gt;_</text></svg>">
+  {{ if .IsHome }}
+  {{ $schema := dict
+    "@context" "https://schema.org"
+    "@type" "Person"
+    "name" .Site.Params.name
+    "alternateName" "mkhlv"
+    "url" .Site.BaseURL
+    "email" (printf "mailto:%s" .Site.Params.email)
+    "jobTitle" .Site.Params.role
+    "address" (dict
+      "@type" "PostalAddress"
+      "addressLocality" .Site.Params.locality
+      "addressCountry" .Site.Params.country)
+    "knowsAbout" .Site.Params.knowsAbout
+    "sameAs" (slice (printf "https://github.com/%s" .Site.Params.github))
+  }}
+  <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
+  {{ end }}
 </head>
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
