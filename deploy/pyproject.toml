@@ -1,0 +1,7 @@
+[project]
+name = "deploy"
+version = "0"
+requires-python = ">=3.11"
+dependencies = [
+    "ansible-core>=2.16",
+]

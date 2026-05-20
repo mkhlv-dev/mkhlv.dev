@@ -1,0 +1,19 @@
+- name: Bootstrap web server
+  hosts: web
+  become: true
+  vars_files:
+    - ../sites.yml
+  roles:
+    - common
+    - deploy_user
+    - nginx
+    - certbot
+  tasks:
+    - name: Provision sites
+      ansible.builtin.include_role:
+        name: static_site
+        tasks_from: provision
+      loop: "{{ sites }}"
+      loop_control:
+        loop_var: site
+        label: "{{ site.domain }}"

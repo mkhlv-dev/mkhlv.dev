@@ -1,0 +1,46 @@
+- name: Ensure docroot exists
+  ansible.builtin.file:
+    path: "{{ nginx_site_root }}/{{ site.domain }}"
+    state: directory
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "0755"
+
+- name: Render vhost
+  ansible.builtin.template:
+    src: nginx-site.conf.j2
+    dest: "/etc/nginx/sites-available/{{ site.domain }}.conf"
+    mode: "0644"
+  register: vhost
+
+- name: Enable vhost
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ site.domain }}.conf"
+    dest: "/etc/nginx/sites-enabled/{{ site.domain }}.conf"
+    state: link
+  register: vhost_link
+
+- name: Validate nginx config
+  ansible.builtin.command: nginx -t
+  changed_when: false
+  when: vhost.changed or vhost_link.changed
+
+- name: Reload nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: reloaded
+  when: vhost.changed or vhost_link.changed
+
+- name: Check existing certificate
+  ansible.builtin.stat:
+    path: "/etc/letsencrypt/live/{{ site.domain }}/fullchain.pem"
+  register: cert
+
+- name: Obtain Let's Encrypt certificate
+  ansible.builtin.command:
+    cmd: >-
+      certbot --nginx --non-interactive --agree-tos --redirect
+      -m {{ certbot_email }}
+      -d {{ site.domain }}
+      {% for alias in site.aliases | default([]) %}-d {{ alias }} {% endfor %}
+  when: not cert.stat.exists

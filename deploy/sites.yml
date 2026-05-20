@@ -1,0 +1,8 @@
+sites:
+  - name: mkhlv-dev
+    domain: mkhlv.dev
+    aliases:
+      - www.mkhlv.dev
+    local_path: "{{ inventory_dir }}/../.."
+    build_cmd: hugo --minify
+    build_output: public

@@ -1,0 +1,38 @@
+- name: Deploy static sites
+  hosts: web
+  gather_facts: false
+  remote_user: "{{ deploy_user }}"
+  vars_files:
+    - ../sites.yml
+  vars:
+    target_sites: >-
+      {{ (sites | selectattr('name', 'equalto', site_name) | list)
+         if site_name is defined else sites }}
+  tasks:
+    - name: Build site locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        cmd: "{{ item.build_cmd }}"
+        chdir: "{{ item.local_path }}"
+      loop: "{{ target_sites }}"
+      loop_control:
+        label: "{{ item.name }}"
+      changed_when: true
+
+    - name: Sync build output to server
+      ansible.posix.synchronize:
+        src: "{{ item.local_path }}/{{ item.build_output }}/"
+        dest: "{{ nginx_site_root }}/{{ item.domain }}/"
+        delete: true
+        rsync_opts:
+          - "--chmod=D755,F644"
+      loop: "{{ target_sites }}"
+      loop_control:
+        label: "{{ item.name }}"
+
+    - name: Reload nginx
+      become: true
+      ansible.builtin.systemd:
+        name: nginx
+        state: reloaded

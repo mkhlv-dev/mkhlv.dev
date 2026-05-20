@@ -1,0 +1,5 @@
+deploy_user: deploy
+deploy_authorized_keys:
+  - "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_ed25519.pub') }}"
+certbot_email: yanmhlv@gmail.com
+nginx_site_root: /var/www
