@@ -1,33 +1,51 @@
 {{ define "main" }}
-<section class="hero">
-  <h1>{{ .Site.Params.name }}</h1>
-  <p class="tagline">{{ .Site.Params.tagline }}</p>
-</section>
+<article class="page">
+  <header class="hero">
+    <p class="eyebrow"><span class="dot"></span>available for interesting problems</p>
+    <h1>{{ .Site.Params.name }}<span class="accent">.</span></h1>
+    <p class="tagline">{{ .Site.Params.tagline }}</p>
+  </header>
 
-<section class="block">
-  <h2>Stack</h2>
-  <ul class="tags">
-    <li>Go</li>
-    <li>Elixir</li>
-    <li>React</li>
-    <li>Python</li>
-  </ul>
-</section>
+  <section class="row">
+    <h2 class="label">Stack</h2>
+    <ul class="tags">
+      <li>Go</li>
+      <li>Elixir</li>
+      <li>React</li>
+      <li>Python</li>
+    </ul>
+  </section>
 
-<section class="block">
-  <h2>Interests</h2>
-  <ul class="tags">
-    <li>Investing &amp; trading</li>
-    <li>High-load systems</li>
-    <li>AI</li>
-  </ul>
-</section>
+  <section class="row">
+    <h2 class="label">Interests</h2>
+    <ul class="tags">
+      <li>Investing &amp; trading</li>
+      <li>High-load systems</li>
+      <li>AI</li>
+    </ul>
+  </section>
 
-<section class="block">
-  <h2>Elsewhere</h2>
-  <ul class="links">
-    <li><a href="https://github.com/{{ .Site.Params.github }}">github.com/{{ .Site.Params.github }}</a></li>
-    <li><a href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></li>
-  </ul>
-</section>
+  <section class="row">
+    <h2 class="label">Elsewhere</h2>
+    <ul class="links">
+      <li>
+        <a href="https://github.com/{{ .Site.Params.github }}" rel="me">
+          <span class="link-key">github</span>
+          <span class="link-val">/{{ .Site.Params.github }}</span>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:{{ .Site.Params.email }}">
+          <span class="link-key">email</span>
+          <span class="link-val">{{ .Site.Params.email }}</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="foot">
+    <span>&copy; {{ now.Format "2006" }} {{ .Site.Params.name }}</span>
+    <span class="foot-meta">built with Hugo · no trackers</span>
+  </footer>
+</article>
 {{ end }}
