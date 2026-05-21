@@ -22,6 +22,11 @@
     <p class="term__cmd"><span class="term__prompt">$</span> cat about.txt</p>
     <p class="term__bio">{{ .Site.Params.bio }}</p>
 
+    {{ with .Site.Params.email }}
+    <p class="term__cmd"><span class="term__prompt">$</span> echo $EMAIL</p>
+    <p class="term__contact"><a class="term__link" href="mailto:{{ . }}">{{ . }}</a></p>
+    {{ end }}
+
     <p class="term__cmd"><span class="term__prompt">$</span> <span class="term__caret" aria-hidden="true"></span></p>
   </div>
 </article>

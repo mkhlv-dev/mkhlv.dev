@@ -196,6 +196,25 @@ main {
   line-height: 1.65;
 }
 
+.term__contact {
+  margin: var(--rhythm-tight) 0 var(--rhythm-block);
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+.term__link {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.term__link:hover,
+.term__link:focus-visible { border-bottom-color: currentColor; }
+
+@media (max-width: 480px) {
+  .term__contact { padding-left: 1rem; }
+}
+
 .term__caret {
   display: inline-block;
   width: 1ch;
