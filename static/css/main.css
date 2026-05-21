@@ -1,0 +1,227 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono.woff2") format("woff2");
+}
+
+:root {
+  --bg: #f2f1ed;
+  --term-bg: #faf9f6;
+  --term-chrome: #ecebe6;
+  --fg: #1f2328;
+  --muted: #656d76;
+  --prompt: #1a7f37;
+  --line: #d0d7de;
+  --accent: #0969da;
+
+  --step: 0.5rem;
+  --rhythm-tight: var(--step);
+  --rhythm-block: calc(var(--step) * 3);
+
+  --mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c2128;
+    --term-bg: #22272e;
+    --term-chrome: #2d333b;
+    --fg: #adbac7;
+    --muted: #768390;
+    --prompt: #8ddb8c;
+    --line: #444c56;
+    --accent: #539bf5;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body { min-height: 100dvh; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+.skip-link:focus { left: 1rem; top: 1rem; z-index: 10; }
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: clamp(1.5rem, 6vw, 4rem) 1rem;
+}
+
+.term {
+  width: 100%;
+  max-width: 620px;
+  background: var(--term-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03), 0 10px 32px rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  .term { box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.35); }
+}
+
+.term__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.9rem;
+  background: var(--term-chrome);
+  border-bottom: 1px solid var(--line);
+  border-radius: 10px 10px 0 0;
+  position: relative;
+}
+
+.term__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.term__dot--r { background: #ff5f57; }
+.term__dot--y { background: #febc2e; }
+.term__dot--g { background: #28c840; }
+
+.term__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .term__title { display: none; }
+}
+
+.term__body {
+  padding: 1.4rem 1.5rem 1.6rem;
+}
+
+.term__cmd {
+  margin: 0;
+  color: var(--fg);
+  font-size: 0.9rem;
+}
+.term__cmd + .term__cmd { margin-top: var(--rhythm-block); }
+
+.term__prompt {
+  color: var(--prompt);
+  font-weight: 500;
+  margin-right: 0.45rem;
+  user-select: none;
+}
+
+.term__profile,
+.term__bio {
+  margin: var(--rhythm-tight) 0 var(--rhythm-block);
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--line);
+}
+
+.term__profile {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+.term__avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  flex-shrink: 0;
+}
+
+.term__meta { min-width: 0; }
+
+.term__greet {
+  margin: 0 0 0.1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.term__name {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.term__tagline {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--fg);
+  line-height: 1.5;
+}
+
+.term__bio {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.term__caret {
+  display: inline-block;
+  width: 1ch;
+  height: 1em;
+  vertical-align: -0.15em;
+  background: var(--fg);
+}
+
+@media (max-width: 480px) {
+  .term__body { padding: 1.15rem 1.15rem 1.35rem; }
+
+  .term__profile,
+  .term__bio { padding-left: 1rem; }
+
+  .term__profile { gap: 0.85rem; }
+
+  .term__avatar {
+    width: 72px;
+    height: 72px;
+  }
+
+  .term__name { font-size: 1.25rem; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

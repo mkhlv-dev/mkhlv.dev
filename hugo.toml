@@ -1,0 +1,27 @@
+baseURL = "https://mkhlv.dev/"
+title = "mkhlv.dev"
+enableRobotsTXT = true
+enableEmoji = false
+disableKinds = ["taxonomy", "term"]
+
+[languages.en]
+  locale = "en_US"
+  label = "English"
+  weight = 1
+
+[params]
+  name = "Ian Mikhailov"
+  role = "Software engineer"
+  greeting = "Hi, my name is"
+  tagline = "I build things end to end."
+  bio = "A software engineer working across backend, frontend, and infrastructure. I focus on the problem first; the stack is whatever gets it shipped."
+  avatar = "ian-pixel.png"
+  ogImage = "og.png"
+  knowsAbout = ["Go", "Elixir", "Phoenix", "Ecto", "TypeScript", "JavaScript", "React", "Python", "PostgreSQL", "ClickHouse", "Redis", "Aerospike", "Kafka", "Adtech", "High-load systems", "Distributed systems", "Trading infrastructure", "Product engineering"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[minify]
+  disableHTML = false
+  minifyOutput = true
