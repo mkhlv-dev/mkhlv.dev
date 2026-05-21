@@ -1,5 +1,5 @@
 {{ define "main" }}
-<article class="term" aria-label="profile">
+<article class="term" aria-labelledby="profile-name">
   <div class="term__chrome" aria-hidden="true">
     <span class="term__dot term__dot--r"></span>
     <span class="term__dot term__dot--y"></span>
@@ -11,10 +11,10 @@
     <p class="term__cmd"><span class="term__prompt">$</span> whoami</p>
 
     <div class="term__profile">
-      <img class="term__avatar" src="{{ .Site.Params.avatar | relURL }}" alt="{{ .Site.Params.name }}" width="112" height="112">
+      <img class="term__avatar" src="{{ .Site.Params.avatar | relURL }}" alt="" width="112" height="112">
       <div class="term__meta">
         <p class="term__greet">{{ .Site.Params.greeting }}</p>
-        <h1 class="term__name">{{ .Site.Params.name }}.</h1>
+        <h1 id="profile-name" class="term__name">{{ .Site.Params.name }}.</h1>
         <p class="term__tagline">{{ .Site.Params.tagline }}</p>
       </div>
     </div>
