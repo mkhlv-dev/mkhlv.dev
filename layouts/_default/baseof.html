@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ .Site.Params.name }} — {{ .Site.Params.role }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
-  <meta name="description" content="{{ .Site.Params.tagline }} {{ .Site.Params.bio }}">
+  <meta name="description" content="{{ with .Site.Params.description }}{{ . }}{{ else }}{{ .Site.Params.tagline }} {{ .Site.Params.bio }}{{ end }}">
   <meta name="author" content="{{ .Site.Params.name }}">
   <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#22272e" media="(prefers-color-scheme: dark)">
@@ -34,6 +34,9 @@
     "image" (.Site.Params.avatar | absURL)
     "knowsAbout" .Site.Params.knowsAbout
   }}
+  {{ with .Site.Params.description }}{{ $schema = merge $schema (dict "description" .) }}{{ end }}
+  {{ with .Site.Params.email }}{{ $schema = merge $schema (dict "email" .) }}{{ end }}
+  {{ with .Site.Params.sameAs }}{{ $schema = merge $schema (dict "sameAs" .) }}{{ end }}
   <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
   {{ end }}
 </head>

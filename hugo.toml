@@ -15,9 +15,11 @@ disableKinds = ["taxonomy", "term"]
   greeting = "Hi, my name is"
   tagline = "I build things end to end."
   bio = "A software engineer working across backend, frontend, and infrastructure. I focus on the problem first; the stack is whatever gets it shipped."
+  description = "Ian Mikhailov — software engineer building end-to-end across backend, frontend, and infra. Go, Elixir, TypeScript, distributed systems."
   avatar = "ian-pixel.png"
-  ogImage = "og.png"
+  ogImage = "ian-pixel.png"
   email = "hi@mkhlv.dev"
+  sameAs = []
   knowsAbout = ["Go", "Elixir", "Phoenix", "Ecto", "TypeScript", "JavaScript", "React", "Python", "PostgreSQL", "ClickHouse", "Redis", "Aerospike", "Kafka", "Adtech", "High-load systems", "Distributed systems", "Trading infrastructure", "Product engineering"]
 
 [markup.goldmark.renderer]
