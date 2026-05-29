@@ -11,7 +11,8 @@
     <p class="term__cmd"><span class="term__prompt">$</span> whoami</p>
 
     <div class="term__profile">
-      <img class="term__avatar" src="{{ .Site.Params.avatar | relURL }}" alt="" width="112" height="112">
+      {{ $avatar := (resources.Get .Site.Params.avatar).Resize "224x webp q82" }}
+      <img class="term__avatar" src="{{ $avatar.RelPermalink }}" alt="{{ .Site.Params.name }}" width="112" height="112">
       <div class="term__meta">
         <p class="term__greet">{{ .Site.Params.greeting }}</p>
         <h1 id="profile-name" class="term__name">{{ .Site.Params.name }}.</h1>
