@@ -7,6 +7,8 @@
 }
 
 :root {
+  color-scheme: light dark;
+
   --bg: #f2f1ed;
   --term-bg: #faf9f6;
   --term-chrome: #ecebe6;
@@ -160,8 +162,6 @@ main {
   height: 96px;
   border-radius: 6px;
   border: 1px solid var(--line);
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
   flex-shrink: 0;
 }
 
@@ -221,6 +221,14 @@ main {
   height: 1em;
   vertical-align: -0.15em;
   background: var(--fg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .term__caret { animation: blink 1s step-end infinite; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 @media (max-width: 480px) {
