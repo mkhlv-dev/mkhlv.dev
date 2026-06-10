@@ -28,6 +28,11 @@
     <p class="term__contact"><a class="term__link" href="mailto:{{ . }}">{{ . }}</a></p>
     {{ end }}
 
+    {{ with .Site.Params.sameAs }}
+    <p class="term__cmd"><span class="term__prompt">$</span> ls links/</p>
+    <p class="term__contact">{{ range . }}<a class="term__link" href="{{ . }}" rel="me">{{ strings.TrimPrefix "https://" . }}</a>{{ end }}</p>
+    {{ end }}
+
     <p class="term__cmd"><span class="term__prompt">$</span> <span class="term__caret" aria-hidden="true"></span></p>
   </div>
 </article>
