@@ -6,11 +6,12 @@
   <title>{{ if .IsHome }}{{ .Site.Params.name }} — {{ .Site.Params.role }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ .Site.Params.description }}">
   <meta name="author" content="{{ .Site.Params.name }}">
+  {{ if not .IsHome }}<meta name="robots" content="noindex">{{ end }}
   <meta name="theme-color" content="#f2f1ed" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#22272e" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="{{ .Permalink }}">
   {{ $og := (resources.Get .Site.Params.ogImage).Resize "1200x webp q80" }}
-  <meta property="og:type" content="profile">
+  <meta property="og:type" content="{{ if .IsHome }}profile{{ else }}website{{ end }}">
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="{{ .Site.Params.name }} — {{ .Site.Params.role }}">
@@ -20,15 +21,15 @@
   <meta property="og:image:width" content="{{ $og.Width }}">
   <meta property="og:image:height" content="{{ $og.Height }}">
   <meta property="og:image:alt" content="{{ .Site.Params.name }}">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ .Site.Params.name }} — {{ .Site.Params.role }}">
   <meta name="twitter:description" content="{{ .Site.Params.description }}">
   <meta name="twitter:image" content="{{ $og.Permalink }}">
   <meta name="twitter:image:alt" content="{{ .Site.Params.name }}">
   <link rel="preload" href="{{ "fonts/jetbrains-mono.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
   {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&gt;_</text></svg>">
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
   {{ if .IsHome }}
   {{ $schema := dict
     "@context" "https://schema.org"
