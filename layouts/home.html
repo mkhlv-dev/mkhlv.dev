@@ -1,0 +1,69 @@
+{{ define "main" }}
+<article class="term" aria-labelledby="profile-name">
+  <div class="term__chrome" aria-hidden="true">
+    <span class="term__dot term__dot--r"></span>
+    <span class="term__dot term__dot--y"></span>
+    <span class="term__dot term__dot--g"></span>
+    <span class="term__title">ian@mkhlv:~</span>
+  </div>
+
+  <div class="term__body">
+    <p class="term__cmd" aria-hidden="true">
+      <span class="term__prompt">$</span> whoami
+    </p>
+
+    <div class="term__profile">
+      {{ $avatarAvif := (resources.Get .Site.Params.avatar).Resize "224x avif q70" }}
+      {{ $avatarWebp := (resources.Get .Site.Params.avatar).Resize "224x webp q82" }}
+      <picture>
+        <source type="image/avif" srcset="{{ $avatarAvif.RelPermalink }}" />
+        <source type="image/webp" srcset="{{ $avatarWebp.RelPermalink }}" />
+        <img
+          class="term__avatar"
+          src="{{ $avatarWebp.RelPermalink }}"
+          alt="{{ .Site.Params.name }}"
+          width="112"
+          height="112"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+      <div class="term__meta">
+        <p class="term__greet">{{ .Site.Params.greeting }}</p>
+        <h1 id="profile-name" class="term__name">{{ .Site.Params.name }}.</h1>
+        <p class="term__tagline">{{ .Site.Params.tagline }}</p>
+      </div>
+    </div>
+
+    <p class="term__cmd" aria-hidden="true">
+      <span class="term__prompt">$</span> cat about.txt
+    </p>
+    <p class="term__bio">{{ .Site.Params.bio }}</p>
+
+    {{ with .Site.Params.email }}
+    <p class="term__cmd" aria-hidden="true">
+      <span class="term__prompt">$</span> echo $EMAIL
+    </p>
+    <p class="term__contact">
+      <a class="term__link" href="mailto:{{ . }}">{{ . }}</a>
+    </p>
+    {{ end }} {{ with .Site.Params.sameAs }}
+    <p class="term__cmd" aria-hidden="true">
+      <span class="term__prompt">$</span> ls links/
+    </p>
+    <p class="term__contact">
+      {{ range $i, $u := . }}{{ if $i }} {{ end }}<a
+        class="term__link"
+        href="{{ $u }}"
+        rel="me"
+        >{{ strings.TrimPrefix "https://" $u }}</a
+      >{{ end }}
+    </p>
+    {{ end }}
+
+    <p class="term__cmd" aria-hidden="true">
+      <span class="term__prompt">$</span> <span class="term__caret"></span>
+    </p>
+  </div>
+</article>
+{{ end }}
