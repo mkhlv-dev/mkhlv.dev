@@ -2,7 +2,6 @@ baseURL = "https://mkhlv.dev/"
 title = "mkhlv.dev"
 locale = "en-US"
 enableRobotsTXT = true
-enableGitInfo = true
 disableHugoGeneratorInject = true
 disableKinds = ["taxonomy", "term", "rss"]
 
@@ -13,8 +12,7 @@ greeting = "Hi, my name is"
 tagline = "I build things end to end."
 bio = "A software engineer working across backend, frontend, and infrastructure. I focus on the problem first; the stack is whatever gets it shipped."
 description = "Ian Mikhailov — software engineer building end-to-end across backend, frontend, and infra. Go, Elixir, TypeScript, distributed systems."
-avatar = "ian-pixel.png"
-ogImage = "ian-pixel.png"
+image = "ian-pixel.webp"
 email = "hi@mkhlv.dev"
 sameAs = ["https://github.com/yanmhlv"]
 knowsAbout = [

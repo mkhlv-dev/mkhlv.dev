@@ -13,51 +13,46 @@
     </p>
 
     <div class="term__profile">
-      {{ $avatarAvif := (resources.Get .Site.Params.avatar).Resize "224x avif q70" }}
-      {{ $avatarWebp := (resources.Get .Site.Params.avatar).Resize "224x webp q82" }}
-      <picture>
-        <source type="image/avif" srcset="{{ $avatarAvif.RelPermalink }}" />
-        <source type="image/webp" srcset="{{ $avatarWebp.RelPermalink }}" />
-        <img
-          class="term__avatar"
-          src="{{ $avatarWebp.RelPermalink }}"
-          alt="{{ .Site.Params.name }}"
-          width="112"
-          height="112"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </picture>
+      {{ $avatar := (resources.Get site.Params.image).Resize "192x webp q82" }}
+      <img
+        class="term__avatar"
+        src="{{ $avatar.RelPermalink }}"
+        alt=""
+        width="96"
+        height="96"
+        decoding="async"
+        fetchpriority="high"
+      >
       <div class="term__meta">
-        <p class="term__greet">{{ .Site.Params.greeting }}</p>
-        <h1 id="profile-name" class="term__name">{{ .Site.Params.name }}.</h1>
-        <p class="term__tagline">{{ .Site.Params.tagline }}</p>
+        <p class="term__greet">{{ site.Params.greeting }}</p>
+        <h1 id="profile-name" class="term__name">{{ site.Params.name }}.</h1>
+        <p class="term__tagline">{{ site.Params.tagline }}</p>
       </div>
     </div>
 
     <p class="term__cmd" aria-hidden="true">
       <span class="term__prompt">$</span> cat about.txt
     </p>
-    <p class="term__bio">{{ .Site.Params.bio }}</p>
+    <p class="term__bio">{{ site.Params.bio }}</p>
 
-    {{ with .Site.Params.email }}
+    {{ with site.Params.email }}
     <p class="term__cmd" aria-hidden="true">
       <span class="term__prompt">$</span> echo $EMAIL
     </p>
     <p class="term__contact">
       <a class="term__link" href="mailto:{{ . }}">{{ . }}</a>
     </p>
-    {{ end }} {{ with .Site.Params.sameAs }}
+    {{ end }}
+
+    {{ with site.Params.sameAs }}
     <p class="term__cmd" aria-hidden="true">
       <span class="term__prompt">$</span> ls links/
     </p>
     <p class="term__contact">
-      {{ range $i, $u := . }}{{ if $i }} {{ end }}<a
-        class="term__link"
-        href="{{ $u }}"
-        rel="me"
-        >{{ strings.TrimPrefix "https://" $u }}</a
-      >{{ end }}
+      {{ range $i, $u := . }}
+      {{- if $i }} {{ end -}}
+      <a class="term__link" href="{{ $u }}" rel="me">{{ strings.TrimPrefix "https://" $u }}</a>
+      {{- end }}
     </p>
     {{ end }}
 
