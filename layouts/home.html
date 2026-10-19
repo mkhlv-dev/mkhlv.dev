@@ -13,10 +13,13 @@
     </p>
 
     <div class="term__profile">
-      {{ $avatar := (resources.Get site.Params.image).Resize "192x webp q82" }}
+      {{ $image := resources.Get site.Params.image }}
+      {{ $avatar := $image.Resize "188x webp lossless NearestNeighbor" }}
       <img
         class="term__avatar"
         src="{{ $avatar.RelPermalink }}"
+        srcset="{{ range $i, $w := slice 70 94 140 188 210 282 }}{{ if $i }}, {{ end }}{{ ($image.Resize (printf "%dx webp lossless NearestNeighbor" $w)).RelPermalink }} {{ $w }}w{{ end }}"
+        sizes="(max-width: 480px) 70px, 94px"
         alt=""
         width="96"
         height="96"

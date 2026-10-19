@@ -11,25 +11,28 @@
   <meta name="theme-color" content="#1c2128" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="{{ .Permalink }}">
   {{ $og := (resources.Get site.Params.image).Resize "1200x jpeg q82" }}
+  {{ $card := resources.Get "og.png" | fingerprint }}
   <meta property="og:type" content="{{ if .IsHome }}profile{{ else }}website{{ end }}">
   <meta property="og:site_name" content="{{ site.Title }}">
   <meta property="og:locale" content="{{ replace site.Language.Locale "-" "_" }}">
   <meta property="og:title" content="{{ site.Params.name }} — {{ site.Params.role }}">
   <meta property="og:description" content="{{ site.Params.description }}">
   <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:image" content="{{ $og.Permalink }}">
-  <meta property="og:image:width" content="{{ $og.Width }}">
-  <meta property="og:image:height" content="{{ $og.Height }}">
+  <meta property="og:image" content="{{ $card.Permalink }}">
+  <meta property="og:image:width" content="{{ $card.Width }}">
+  <meta property="og:image:height" content="{{ $card.Height }}">
   <meta property="og:image:alt" content="{{ site.Params.name }}">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ site.Params.name }} — {{ site.Params.role }}">
   <meta name="twitter:description" content="{{ site.Params.description }}">
-  <meta name="twitter:image" content="{{ $og.Permalink }}">
+  <meta name="twitter:image" content="{{ $card.Permalink }}">
   <meta name="twitter:image:alt" content="{{ site.Params.name }}">
   <link rel="preload" href="{{ "fonts/jetbrains-mono.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
   {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  <link rel="icon" href="{{ "favicon.ico" | relURL }}" sizes="32x32">
   <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
   {{ if .IsHome }}
   {{ $schema := dict
     "@context" "https://schema.org"
@@ -48,8 +51,7 @@
   {{ end }}
 </head>
 <body>
-  <a class="skip-link" href="#content">Skip to content</a>
-  <main id="content" tabindex="-1">
+  <main>
     {{ block "main" . }}{{ end }}
   </main>
 </body>
